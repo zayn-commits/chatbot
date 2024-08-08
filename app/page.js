@@ -1,7 +1,16 @@
 'use client'
 import Image from "next/image";
 import { useState } from "react";
-import{ Box, Stack, TextField, Button } from '@mui/material'
+import{ Box, Stack, TextField, Button, BottomNavigation, BottomNavigationAction, SpeedDial,SpeedDialIcon, SpeedDialAction } from '@mui/material'
+import React from "react";
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+
+
+
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -11,7 +20,17 @@ export default function Home() {
   }
 ])
 
+  const [value, setValue] = React.useState(0);
+
+
   const [message, setMessage] = useState('')
+
+  const actions = [
+    { icon: <FileCopyIcon />, name: 'Copy' },
+    { icon: <SaveIcon />, name: 'Save' },
+    { icon: <PrintIcon />, name: 'Print' },
+    { icon: <ShareIcon />, name: 'Share' },
+  ];
 
   const sendMessage = async()=>{
     setMessage('')
@@ -52,15 +71,35 @@ export default function Home() {
     })
   }
 
-  return <Box 
-  width = "100vw" 
-  height = "100vh"
-  display="flex"
-  flexDirection="column"
-  justifyContent="center"
-  alignItems="center"
+  return (
+    
+  <Box 
+  sx={{
+  background: 'linear-gradient(to right, #fcfcfc, #e8c1c8)',
+  height: '100vh',
+  display: 'flex',
+  flexDirection: "column",
+  justifyContent: 'center',
+  alignItems: 'center'
+}}
   >
+
+<SpeedDial
+  ariaLabel="SpeedDial basic example"
+  sx={{ position: 'absolute', bottom: 16, right: 16 }}
+  icon={<SpeedDialIcon />}
+>
+  {actions.map((action) => (
+    <SpeedDialAction
+      key={action.name}
+      icon={action.icon}
+      tooltipTitle={action.name}
+    />
+  ))}
+</SpeedDial>
+
     <Stack 
+    bgcolor="white"
     direction = "column"
     width = "600px"
     height = "700px"
@@ -107,11 +146,11 @@ export default function Home() {
       value = {message}
       onChange={(e) => setMessage(e.target.value)}
       />
-      <Button variant = "contained" onClick={sendMessage}>
+      <Button variant = "contained" onClick={sendMessage} >
         Send
       </Button>
       </Stack>
     </Stack>
   </Box>
-  
+  )
 }
