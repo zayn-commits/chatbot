@@ -3,10 +3,6 @@ import Image from "next/image";
 import { useState } from "react";
 import{ Box, Stack, TextField, Button, SpeedDial,SpeedDialIcon, SpeedDialAction} from '@mui/material'
 import React from "react";
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -14,6 +10,8 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
+import { keyframes } from '@emotion/react';
+
 
 
 export default function Home() {
@@ -34,14 +32,14 @@ export default function Home() {
     setOpen(false);
   };
 
-  const actions = [
-    { icon: <FileCopyIcon />, name: 'Copy' },
-    { icon: <SaveIcon />, name: 'Save' },
-    { icon: <PrintIcon />, name: 'Print' },
-    { icon: <ShareIcon />, name: 'Share' },
-  ];
-
-
+  const moveBg = keyframes`
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+`;
 
   const sendMessage = async()=>{
     setMessage('')
@@ -83,18 +81,30 @@ export default function Home() {
   }
 
   return (
-  
   <Box 
   sx={{
-  background: 'linear-gradient(to right, #fcfcfc, #e8c1c8)',
-  height: '100vh',
-  display: 'flex',
-  flexDirection: "column",
-  justifyContent: 'center',
-  alignItems: 'center'
-}}
+    position: 'relative',
+    width: '100vw',
+    height: '100vh',
+    overflow: 'hidden',
+    background: 'linear-gradient(to right, #24243e, #302b63, #0f0c29)', // Background gradient
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+  }}
   >
-
+   <Box 
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%)',
+          animation: `${moveBg} 10s linear infinite`,
+        }}
+      />  
     <>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
@@ -127,24 +137,10 @@ export default function Home() {
       </Dialog>
     </>
 
-<SpeedDial
-  ariaLabel="SpeedDial basic example"
-  sx={{ position: 'absolute', bottom: 16, right: 16 }}
-  icon={<SpeedDialIcon />}
->
-  {actions.map((action) => (
-    <SpeedDialAction
-      key={action.name}
-      icon={action.icon}
-      tooltipTitle={action.name}
-    />
-  ))}
-</SpeedDial>
-
     <Stack 
     bgcolor="white"
     direction = "column"
-    width = "600px"
+    width = "800px"
     height = "700px"
     border = "1px solid black"
     p={2}
@@ -168,11 +164,11 @@ export default function Home() {
             <Box
             bgcolor={
               message.role === 'assistant' 
-              ? 'primary.main' 
+              ? '#7282ba' 
               : 'secondary.main'
             }
             color="white"
-            borderRadius={16}
+            borderRadius={0}
             p={3}
             >
               {message.content}
