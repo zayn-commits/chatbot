@@ -1,29 +1,38 @@
 'use client'
 import Image from "next/image";
 import { useState } from "react";
-import{ Box, Stack, TextField, Button, BottomNavigation, BottomNavigationAction, SpeedDial,SpeedDialIcon, SpeedDialAction } from '@mui/material'
+import{ Box, Stack, TextField, Button, SpeedDial,SpeedDialIcon, SpeedDialAction} from '@mui/material'
 import React from "react";
 import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
-
-
-
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 export default function Home() {
   const [messages, setMessages] = useState([
     {
     role: 'assistant',
-    content: `Hi I'm the Headstarter Support Agent, how can I assist you today?`
+    content: `Welcome back sir, how can I help you today?`
   }
 ])
 
   const [value, setValue] = React.useState(0);
 
-
   const [message, setMessage] = useState('')
+
+  const [open, setOpen] = useState(true);
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const actions = [
     { icon: <FileCopyIcon />, name: 'Copy' },
@@ -31,6 +40,8 @@ export default function Home() {
     { icon: <PrintIcon />, name: 'Print' },
     { icon: <ShareIcon />, name: 'Share' },
   ];
+
+
 
   const sendMessage = async()=>{
     setMessage('')
@@ -72,7 +83,7 @@ export default function Home() {
   }
 
   return (
-    
+  
   <Box 
   sx={{
   background: 'linear-gradient(to right, #fcfcfc, #e8c1c8)',
@@ -83,6 +94,38 @@ export default function Home() {
   alignItems: 'center'
 }}
   >
+
+    <>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
+          <Typography variant="h4" align="center" >
+            JARVIS
+          </Typography>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[100],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            Welcome Back Sir.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Enter Site
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
 
 <SpeedDial
   ariaLabel="SpeedDial basic example"
