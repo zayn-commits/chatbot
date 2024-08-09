@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image";
 import { useState } from "react";
-import{ Box, Stack, TextField, Button, SpeedDial,SpeedDialIcon, SpeedDialAction} from '@mui/material'
+import{ Box, Stack, TextField, Button, styled} from '@mui/material'
 import React from "react";
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -27,7 +27,11 @@ export default function Home() {
   const [message, setMessage] = useState('')
 
   const [open, setOpen] = useState(true);
-  
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -41,6 +45,62 @@ export default function Home() {
   }
 `;
 
+const openAnimation = keyframes`
+  0% {
+    height: 0px; /* Start from zero height */
+    opacity: 0; /* Start fully transparent */
+  }
+  
+  15% {
+    height: 15px; /* Start from zero height */
+    opacity: 0; /* Start fully transparent */
+  }
+  
+  25% {
+    height: 25px; /* Start from zero height */
+    opacity: 0; /* Start fully transparent */
+  }
+
+  35% {
+    height: 35px; /* Start from zero height */
+    opacity: 0; /* Start fully transparent */
+  }
+
+  50% {
+    height: 50px; /* Partially expand height */
+    opacity: 0.5; /* Fade in slightly */
+  }
+
+  65% {
+    height: 65px; /* Start from zero height */
+    opacity: 0; /* Start fully transparent */
+  }
+
+  75% {
+    height: 75px; /* Start from zero height */
+    opacity: 0; /* Start fully transparent */
+  }
+
+  90% {
+    height: 90px; /* Start from zero height */
+    opacity: 0; /* Start fully transparent */
+  }
+
+  100% {
+    height: 100%; /* Expand to full height */
+    opacity: 1; /* Fully opaque */
+  }
+`;
+
+const AnimatedDialogContent = styled(DialogContent)(({ theme }) => ({
+  position: 'relative',
+  animation: `${openAnimation} 0.6s ease-out forwards`, // Smooth vertical expansion
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: '12px', // Rounded corners for a cleaner look
+  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // Subtle shadow for depth
+  overflow: 'hidden', // Ensure no overflow issues
+  width: '400px', // Maintain a consistent width throughout the animation
+}));
   const sendMessage = async()=>{
     setMessage('')
     setMessages((messages)=>[
@@ -106,43 +166,38 @@ export default function Home() {
         }}
       />  
     <>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          <Typography variant="h4" align="center" >
-            JARVIS
-          </Typography>
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[100],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            Welcome Back Sir.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Enter Site
-          </Button>
-        </DialogActions>
+    <Dialog open={open} onClose={handleClose}>
+        <AnimatedDialogContent>
+          <Box sx={{ padding: 3 }}>
+            <Typography 
+            variant="h6" 
+            sx={{ 
+            marginBottom: 2, 
+            textAlign: 'center',
+            }}>
+              JARVIS
+            </Typography>
+            <Typography 
+            variant="body1" 
+            sx={{ 
+            marginBottom: 3, 
+            textAlign: 'center'
+            }}>
+              Welcome Back Sir.
+            </Typography>
+            <Button variant="contained" color="primary" onClick={handleClose} sx={{ marginRight: 1 }}>
+              Close
+            </Button>
+          </Box>
+        </AnimatedDialogContent>
       </Dialog>
     </>
 
     <Stack 
-    bgcolor="white"
+    bgcolor=""
     direction = "column"
     width = "800px"
-    height = "700px"
-    border = "1px solid black"
+    height = "650px"
     p={2}
     spacing={3}
     >
@@ -178,14 +233,19 @@ export default function Home() {
       </Stack>
       <Stack
       direction="row"
-      spacing={2}>
+      spacing={2}
+      bgcolor = "transparent " >
       <TextField
-      label = "message"
+      variant="standard"
+      label = "Enter Message"
       fullWidth
       value = {message}
       onChange={(e) => setMessage(e.target.value)}
       />
-      <Button variant = "contained" onClick={sendMessage} >
+      <Button 
+      variant = "contained" 
+      onClick={sendMessage}
+      color = "secondary" >
         Send
       </Button>
       </Stack>
