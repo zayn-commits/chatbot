@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import{ Box, Stack, TextField, Button, styled,} from '@mui/material'
+import{ Box, Stack, TextField, Button, styled, } from '@mui/material'
 import React from "react";
 
 export default function Home() {
@@ -22,17 +22,20 @@ const comicFont = {
   fontFamily: "'Comic Sans MS', 'Comic Neue', cursive",
 };
 
+
+
 const AnimatedButton = styled(Button)({
-  transition: 'transform 0.3s ease', // Smooth transition for scaling
+  transition: 'transform 0.3s ease',
   '&:hover': {
-    transform: 'scale(1.1)', // Scale up the button on hover
+    transform: 'scale(1.1)',
   },
-  padding: '10px 20px', // Adjust padding as needed
-  backgroundColor: '', // Button background color
-  color: '#fff', // Button text color
-  border: 'none', // Remove default border
-  borderRadius: '4px', // Rounded corners
-  fontSize: '16px', // Font size
+  padding: '10px 20px',
+  backgroundColor: '#781d20',
+  color: '#fff', 
+  border: 'none', 
+  borderRadius: '4px', 
+  fontSize: '16px',
+  fontFamily: 'Comic Sans MS',
 });
 
   const [value, setValue] = React.useState(0);
@@ -103,6 +106,18 @@ const AnimatedButton = styled(Button)({
       justifyContent: 'center',
   }}
   >
+   <Box 
+      sx={{ 
+        position: 'absolute', 
+        top: 10, 
+        left: 10, 
+        width: '100px', 
+        height: '100px',
+        backgroundImage: 'url(/images/JL.png)',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+      }} 
+      />
     <Stack 
     bgcolor=""
     direction = "column"
