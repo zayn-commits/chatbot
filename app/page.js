@@ -30,7 +30,6 @@ const AnimatedButton = styled(Button)({
     transform: 'scale(1.1)',
   },
   padding: '10px 20px',
-  backgroundColor: '#781d20',
   color: '#fff', 
   border: 'none', 
   borderRadius: '4px', 
