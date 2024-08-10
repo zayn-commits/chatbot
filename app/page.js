@@ -1,12 +1,7 @@
 'use client'
-import Image from "next/image";
 import { useState } from "react";
-import{ Box, Stack, TextField, Button, styled} from '@mui/material'
+import{ Box, Stack, TextField, Button, styled,} from '@mui/material'
 import React from "react";
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
-import { keyframes } from '@emotion/react';
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -27,6 +22,19 @@ const comicFont = {
   fontFamily: "'Comic Sans MS', 'Comic Neue', cursive",
 };
 
+const AnimatedButton = styled(Button)({
+  transition: 'transform 0.3s ease', // Smooth transition for scaling
+  '&:hover': {
+    transform: 'scale(1.1)', // Scale up the button on hover
+  },
+  padding: '10px 20px', // Adjust padding as needed
+  backgroundColor: '', // Button background color
+  color: '#fff', // Button text color
+  border: 'none', // Remove default border
+  borderRadius: '4px', // Rounded corners
+  fontSize: '16px', // Font size
+});
+
   const [value, setValue] = React.useState(0);
 
   const [message, setMessage] = useState('')
@@ -41,14 +49,6 @@ const comicFont = {
     setOpen(false);
   };
 
-//   const moveBg = keyframes` 
-//   0% {
-//     transform: translateX(-100%);
-//   }
-//   100% {
-//     transform: translateX(100%);
-//   }
-// `; // MOVING BACKGROUND
 
   const sendMessage = async()=>{
     setMessage('')
@@ -92,7 +92,7 @@ const comicFont = {
   return (
   <Box 
     sx={{
-      backgroundImage: 'url(https://i.imgur.com/ZApCZum.jpeg)', // Use the URL relative to the public folder
+      backgroundImage: 'url(https://i.imgur.com/ZApCZum.jpeg)',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
@@ -136,8 +136,8 @@ const comicFont = {
                 padding: '16px',
                 maxWidth: '75%',
                 position: 'relative',
-                fontFamily: comicFont.fontFamily, // Apply comic book font
-                boxShadow: '4px 4px 0 #000', // Add comic-style shadow
+                fontFamily: comicFont.fontFamily,
+                boxShadow: '4px 4px 0 #000',
                 '&:after': {
                   content: '""',
                   position: 'absolute',
@@ -180,18 +180,31 @@ const comicFont = {
       bgcolor = "" 
       borderRadius={16}>
       <TextField
-      variant="standard"
-      label = "Enter Message"
+      sx={{
+      position: 'relative',
+      '& .MuiOutlinedInput-root': {
+      borderRadius: '20px',
+      padding: '10px',
+      backgroundColor: '#f5f5f5',
+      border: '2.5px solid #000',
+      },
+      '& .MuiInputBase-input': {
+      fontFamily: 'Comic Sans MS',
+      padding: '10px',
+    },
+      }}
+      label="Message"
+      variant="outlined"
       fullWidth
-      value = {message}
+      value={message}
       onChange={(e) => setMessage(e.target.value)}
-      />x
-      <Button 
-      variant = "contained" 
+      />
+      <AnimatedButton
       onClick={sendMessage}
-      color = "secondary" >
-        Send
-      </Button>
+      color = "error" 
+      variant = "container"
+      >Send
+      </AnimatedButton>
       </Stack>
     </Stack>
   </Box>
