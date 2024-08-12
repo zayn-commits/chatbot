@@ -1,9 +1,30 @@
 'use client'
-import { useState } from "react";
-import{ Box, Stack, TextField, Button, styled, } from '@mui/material'
+import { useState, useEffect } from "react";
+import{ Box, Stack, TextField, styled, IconButton, InputAdornment, ThemeProvider} from '@mui/material'
 import React from "react";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
 
 export default function Home() {
+
+    useEffect(() => {
+
+      const script = document.createElement('script');
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-9Z0C1X0YW8';
+      script.async = true;
+      document.head.appendChild(script);
+  
+      script.onload = () => {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9Z0C1X0YW8');
+      };
+  
+      return () => {
+        document.head.removeChild(script);
+      };
+    }, [])
 
   const [messages, setMessages] = useState([
     {
@@ -20,37 +41,25 @@ const ComicBubble = styled(Box)(({ isUser }) => ({
 }));
 
 const comicFont = {
-  fontFamily: 'Comic Sans MS'
+  fontFamily: 'Comic Sans MS, Comic Neue'
 };
 
-const AnimatedButton = styled(Button)({
-  transition: 'transform .3s ease',
-  '&:hover': {
-    transform: 'scale(1.1)',
-  },
-  padding: '10px 20px',
-  color: '#fff', 
-  border: 'none', 
-  borderRadius: '4px', 
-  fontSize: '16px',
-  fontFamily: 'Comic Sans MS',
-});
 
 
-  const [value, setValue] = React.useState(0);
+// const AnimatedButton = styled(Button)({
+//   transition: 'transform .3s ease',
+//   '&:hover': {
+//     transform: 'scale(1.1)',
+//   },
+//   padding: '10px 20px',
+//   color: '#fff', 
+//   border: 'none', 
+//   borderRadius: '4px', 
+//   fontSize: '16px',
+//   fontFamily: 'Comic Sans MS',
+// });
 
   const [message, setMessage] = useState('')
-
-  const [open, setOpen] = useState(true);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
 
   const sendMessage = async()=>{
     setMessage('')
@@ -199,36 +208,61 @@ const AnimatedButton = styled(Button)({
       <Stack
       direction="row"
       spacing={2}
-      bgcolor = "" 
-      borderRadius={16}>
+      bgcolor=""
+      borderRadius={16}
+      alignItems="center"
+    >
       <TextField
-      sx={{
-      position: 'relative',
-      '& .MuiOutlinedInput-root': {
-      borderRadius: '20px',
-      padding: '10px',
-      backgroundColor: '#f5f5f5',
-      border: '2.5px solid #000',
-      },
-      '& .MuiInputBase-input': {
-      fontFamily: 'Comic Sans MS',
-      padding: '10px',
-    },
-      }}
-      label="Message"
-      variant="outlined"
-      fullWidth
-      value={message}
-      onChange={(e) => setMessage(e.target.value)}
+        sx={{
+          position: 'relative',
+          '& .MuiOutlinedInput-root': {
+            borderRadius: '20px',
+            padding: '10px',
+            backgroundColor: '#f5f5f5',
+            border: '2.5px solid #000',
+          },
+          '& .MuiInputBase-input': {
+            fontFamily: 'Comic Sans MS',
+            padding: '10px',
+            paddingRight: '60px',
+          },
+          '& .MuiInputLabel-root': {
+            fontFamily: 'Comic Sans MS', 
+          },
+          '& .MuiInputBase-input::placeholder': {
+            fontFamily: 'Arial',
+            fontSize: '16px',
+            color: '#888',
+          },
+        }}
+        label="Message"
+        variant="outlined"
+        fullWidth
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={sendMessage}
+                sx={{
+                  borderRadius: '50%',
+                  backgroundColor: '#8a1111',
+                  color: '#FFFFFF',
+                  '&:hover': {
+                    backgroundColor: '#630d0d',
+                  },
+                }}
+              >
+                <ArrowForwardIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
-      <AnimatedButton
-      onClick={sendMessage}
-      color = "error" 
-      variant = "container"
-      >Send
-      </AnimatedButton>
-      </Stack>
+    </Stack>
     </Stack>
   </Box>
   )
 }
+
