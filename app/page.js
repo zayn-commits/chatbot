@@ -41,7 +41,7 @@ const ComicBubble = styled(Box)(({ isUser }) => ({
 }));
 
 const comicFont = {
-  fontFamily: 'Comic Sans MS, Comic Neue'
+  fontFamily: 'Comic Sans MS , AppleSDGothicNeo-SemiBold '
 };
 
 
@@ -222,15 +222,15 @@ const comicFont = {
             border: '2.5px solid #000',
           },
           '& .MuiInputBase-input': {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: comicFont.fontFamily,
             padding: '10px',
             paddingRight: '60px',
           },
           '& .MuiInputLabel-root': {
-            fontFamily: 'Comic Sans MS', 
+            fontFamily: comicFont.fontFamily, 
           },
           '& .MuiInputBase-input::placeholder': {
-            fontFamily: 'Arial',
+            fontFamily: comicFont.fontFamily,
             fontSize: '16px',
             color: '#888',
           },
