@@ -4,6 +4,7 @@ import{ Box, Stack, TextField, Button, styled, } from '@mui/material'
 import React from "react";
 
 export default function Home() {
+
   const [messages, setMessages] = useState([
     {
     role: 'assistant',
@@ -25,7 +26,7 @@ const comicFont = {
 
 
 const AnimatedButton = styled(Button)({
-  transition: 'transform 0.3s ease',
+  transition: 'transform .3s ease',
   '&:hover': {
     transform: 'scale(1.1)',
   },
@@ -36,6 +37,7 @@ const AnimatedButton = styled(Button)({
   fontSize: '16px',
   fontFamily: 'Comic Sans MS',
 });
+
 
   const [value, setValue] = React.useState(0);
 

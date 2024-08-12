@@ -1,0 +1,5 @@
+rsync -avz --exclude 'node_modules' --exclude '.git' --exclude '.env' \
+-e "ssh -i ~/.ssh/florida-zayn-mbp.pem" \
+. ubuntu@ec2-3-145-95-178.us-east-2.compute.amazonaws.com:~/app
+
+ssh -i "florida-zayn-mbp.pem" ubuntu@ec2-3-145-95-178.us-east-2.compute.amazonaws.com
