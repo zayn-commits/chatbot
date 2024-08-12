@@ -20,10 +20,8 @@ const ComicBubble = styled(Box)(({ isUser }) => ({
 }));
 
 const comicFont = {
-  fontFamily: "'Comic Sans MS', 'Comic Neue', cursive",
+  fontFamily: 'Comic Sans MS'
 };
-
-
 
 const AnimatedButton = styled(Button)({
   transition: 'transform .3s ease',
@@ -120,6 +118,7 @@ const AnimatedButton = styled(Button)({
       }} 
       />
     <Stack 
+    
     bgcolor=""
     direction = "column"
     width = "800px"
@@ -128,11 +127,18 @@ const AnimatedButton = styled(Button)({
     spacing={3}
     >
       <Stack
-      direction="column"
-      spacing={2}
-      flexGrow={1}
-      overflow = "auto"
-      maxHeight="100%"
+      sx={{
+      flexDirection: 'column',
+      spacing: 2,
+      flexGrow: 1,
+      overflow: 'auto',
+      maxHeight: '100%',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+      },
+      '-ms-overflow-style': 'none',
+      'scrollbar-width': 'none',
+      }}
       >
         {messages.map((message,index)=> (
             <ComicBubble
